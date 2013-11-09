@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
                 <outlet property="carousel" destination="cAm-kh-f94" id="6e8-FA-PkS"/>
+                <outlet property="tabBar" destination="ck5-OP-6t6" id="w2P-ns-f2A"/>
                 <outlet property="toMovieTheaterBtn" destination="2MG-EN-HjV" id="ycA-p3-Qhv"/>
                 <outlet property="toMovieTimeBtn" destination="i7B-b3-Pdz" id="Duf-U9-Jbj"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -34,15 +35,14 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <tabBar contentMode="scaleToFill" id="ck5-OP-6t6">
+                <tabBar opaque="NO" contentMode="scaleToFill" id="ck5-OP-6t6">
                     <rect key="frame" x="0.0" y="367" width="320" height="49"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <items>
-                        <tabBarItem title="Voy palCine" id="8Nb-is-cqN"/>
-                        <tabBarItem title="En Cartelera" id="yCo-0g-5Fh"/>
-                        <tabBarItem title="Proximamente" id="pKL-ZR-cQu"/>
-                        <tabBarItem title="Mi Ubicacion" id="64r-Tt-KDO"/>
+                        <tabBarItem title="Voy palCine" image="palCineIcon.png" id="8Nb-is-cqN"/>
+                        <tabBarItem title="En Cartelera" image="moviesIcon.png" id="yCo-0g-5Fh"/>
+                        <tabBarItem title="Proximamente" image="comingIcon.png" id="pKL-ZR-cQu"/>
+                        <tabBarItem title="Mi Ubicacion" image="locationIcon.png" id="64r-Tt-KDO"/>
                     </items>
                 </tabBar>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i7B-b3-Pdz">
@@ -53,6 +53,9 @@
                     <state key="normal" title="Por Hora">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="toMovieTimeAction:" destination="-1" eventType="touchUpInside" id="fsp-hO-Ovp"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2MG-EN-HjV">
                     <rect key="frame" x="177" y="67" width="123" height="44"/>
@@ -82,4 +85,10 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="comingIcon.png" width="30" height="30"/>
+        <image name="locationIcon.png" width="30" height="30"/>
+        <image name="moviesIcon.png" width="30" height="30"/>
+        <image name="palCineIcon.png" width="30" height="30"/>
+    </resources>
 </document>

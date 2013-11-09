@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "Movie.h"
+#import "AsyncImageView.h"
 
 @interface HomeViewController ()
 
@@ -21,6 +22,8 @@
 @synthesize toMovieTimeBtn;
 @synthesize toMovieTheaterBtn;
 @synthesize carousel;
+@synthesize tabBar;
+@synthesize items;
 
 
 
@@ -53,10 +56,11 @@
     if (self) {
         // Custom initialization
         self.items = [NSMutableArray array];
-        
+        self.tabBar.selectedItem = self.tabBar.items[0];
+        //[tabBar setSelectedItem:[tabBar.items objectAtIndex:0]];
         xmlParser = [[XMLParser alloc]loadXMLByURL:@"http://palcine.me/api/movies?loc=tgu"];
         
-        _items = [xmlParser movies];
+        items = [xmlParser movies];
         
         //for (int i = 0; i < 5; i++)
         //{
@@ -80,12 +84,12 @@
     // Do any additional setup after loading the view from its nib.
     //configure carousel
     CALayer *btnLayer = [toMovieTimeBtn layer];
-    [btnLayer setMasksToBounds:YES];
-    [btnLayer setCornerRadius:5.0f];
+    //[btnLayer setMasksToBounds:YES];
+    //[btnLayer setCornerRadius:5.0f];
     
     CALayer *btnLayer2 = [toMovieTheaterBtn layer];
-    [btnLayer2 setMasksToBounds:YES];
-    [btnLayer2 setCornerRadius:5.0f];
+    //[btnLayer2 setMasksToBounds:YES];
+    //[btnLayer2 setCornerRadius:5.0f];
     
     self.title = @"palCine";
     self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeTextColor : [UIColor whiteColor]};
@@ -122,8 +126,8 @@
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
     //return the total number of items in the carousel
-    NSLog(@"%d",[_items count]);
-    return [_items count];
+    //NSLog(@"%d",[items count]);
+    return [items count];
     //Movie *currentMovie = [xmlParser movies];
     //NSLog(@"%d",[[xmlParser movies] count]);
     //NSLog(@"When i get here?");
@@ -132,42 +136,40 @@
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
-    UILabel *label = nil;
+    //UILabel *label = nil;
 
-    Movie *currentMovie = [[xmlParser movies] objectAtIndex:index];
-    UIImageView *movieImage = nil;
-    //create new view if no view is available for recycling
-    NSString *imgURL = [[NSString alloc]initWithFormat:@"http://palcine.me/images/movies/%@",currentMovie.imageURL];
-    NSLog(currentMovie.imageURL);
-    NSURL *url = [NSURL URLWithString:imgURL];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    UIImage *img = [[UIImage alloc] initWithData:data];
-    movieImage = [[UIImageView alloc]initWithImage:img];
+    
     if (view == nil)
     {
-        //don't do anything specific to the index within
-        //this `if (view == nil) {...}` statement because the view will be
-        //recycled and used with other index values later
-        view = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, 180.0f, 220.0f)];
+        
+        view = [[[AsyncImageView alloc] initWithFrame:CGRectMake(0, 0, 135.0f, 200.0f)] autorelease];
+        view.contentMode = UIViewContentModeScaleAspectFit;
+        //view.backgroundColor = [UIColor clearColor];
+        
+        FXImageView *imageView = [[FXImageView alloc] initWithFrame:CGRectMake(0, 0, 150.0f, 220.0f)];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.asynchronous = YES;
+        imageView.reflectionScale = 0.5f;
+        imageView.reflectionAlpha = 0.25f;
+        imageView.reflectionGap = 10.0f;
+        imageView.shadowOffset = CGSizeMake(0.0f, 4.0f);
+        imageView.shadowColor = [UIColor grayColor];
+        imageView.shadowBlur = 10.0f;
+        view=imageView;
         
         
-        //movieImage = [[UIImageView alloc]initWithImage:[currentMovie imageThumbnail]];
-        ((UIImageView *)view).image = movieImage.image;
-        //((UIImageView *)view).image = [UIImage imageNamed:@"batman.jpg"];
-        view.contentMode = UIViewContentModeCenter;
+        //label = [[UILabel alloc] initWithFrame:view.bounds];
+        //label.backgroundColor = [UIColor clearColor];
         
-        label = [[UILabel alloc] initWithFrame:view.bounds];
-        label.backgroundColor = [UIColor clearColor];
-        
-        label.textAlignment = NSTextAlignmentCenter;
-        label.font = [label.font fontWithSize:50];
-        label.tag = 1;
-        [view addSubview:label];
+        //label.textAlignment = NSTextAlignmentCenter;
+        //label.font = [label.font fontWithSize:50];
+        //label.tag = 1;
+        //[view addSubview:label];
     }
     else
     {
         //get a reference to the label in the recycled view
-        label = (UILabel *)[view viewWithTag:1];
+        //label = (UILabel *)[view viewWithTag:1];
     }
     
     //set item label
@@ -177,6 +179,16 @@
     //in the wrong place in the carousel
     //label.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"batman.jpg"]];
     //label.text = [_items[index] stringValue];
+    //cancel any previously loading images for this view
+    [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:view];
+    
+    //set image URL. AsyncImageView class will then dynamically load the image
+    Movie *currentMovie = [items objectAtIndex:index];
+    NSString *imgURL = [[NSString alloc]initWithFormat:@"http://palcine.me/images/movies/%@",currentMovie.imageURL];
+    NSLog(currentMovie.imageURL);
+    NSURL *url = [NSURL URLWithString:imgURL];
+    ((AsyncImageView *)view).imageURL = url;
+    //((FXImageView *)view).image = movieImage.image;
     
     return view;
 }
@@ -191,4 +203,10 @@
 }
 
 
+- (IBAction)toMovieTimeAction:(id)sender {
+    
+    UIAlertView *myAlert = [[UIAlertView alloc]initWithTitle:@"Huh" message:@"Todo bien" delegate:self cancelButtonTitle:@"Adios" otherButtonTitles: nil];
+    [myAlert show];
+    
+}
 @end
