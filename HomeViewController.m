@@ -137,16 +137,29 @@
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
     //UILabel *label = nil;
+    #define IMAGE_VIEW_TAG 99
 
     
     if (view == nil)
     {
         
-        view = [[[AsyncImageView alloc] initWithFrame:CGRectMake(0, 0, 135.0f, 200.0f)] autorelease];
-        view.contentMode = UIViewContentModeScaleAspectFit;
+        
+        //label = [[UILabel alloc] initWithFrame:view.bounds];
+        //label.backgroundColor = [UIColor clearColor];
+        
+        //label.textAlignment = NSTextAlignmentCenter;
+        //label.font = [label.font fontWithSize:50];
+        //label.tag = 1;
+        //[view addSubview:label];
+        
+        view = [[[AsyncImageView alloc] initWithFrame:CGRectMake(0, 0, 170.0f, 230.0f)] autorelease];
+        //view.contentMode = UIViewContentModeScaleAspectFit;
+        //view.contentMode = UIViewContentModeScaleAspectFit;
         //view.backgroundColor = [UIColor clearColor];
         
-        FXImageView *imageView = [[FXImageView alloc] initWithFrame:CGRectMake(0, 0, 150.0f, 220.0f)];
+        FXImageView *imageView = [[FXImageView alloc] initWithFrame:CGRectMake(0, 0, 170.0f, 230.0f)];
+        imageView.clipsToBounds = YES;
+        imageView.tag = IMAGE_VIEW_TAG;
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         imageView.asynchronous = YES;
         imageView.reflectionScale = 0.5f;
@@ -158,13 +171,8 @@
         view=imageView;
         
         
-        //label = [[UILabel alloc] initWithFrame:view.bounds];
-        //label.backgroundColor = [UIColor clearColor];
+
         
-        //label.textAlignment = NSTextAlignmentCenter;
-        //label.font = [label.font fontWithSize:50];
-        //label.tag = 1;
-        //[view addSubview:label];
     }
     else
     {
@@ -179,6 +187,9 @@
     //in the wrong place in the carousel
     //label.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"batman.jpg"]];
     //label.text = [_items[index] stringValue];
+    //label.text = @"Hola";
+    
+    
     //cancel any previously loading images for this view
     [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:view];
     
