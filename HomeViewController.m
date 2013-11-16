@@ -137,11 +137,16 @@
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
     //UILabel *label = nil;
-    #define IMAGE_VIEW_TAG 99
 
     
     if (view == nil)
     {
+        // create activity indicator
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
+                                                      initWithFrame:CGRectMake(0.0f, 0.0f, 20.0f, 20.0f)];
+        [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        
+        [view addSubview:activityIndicator];
         
         
         //label = [[UILabel alloc] initWithFrame:view.bounds];
@@ -158,8 +163,6 @@
         //view.backgroundColor = [UIColor clearColor];
         
         FXImageView *imageView = [[FXImageView alloc] initWithFrame:CGRectMake(0, 0, 170.0f, 230.0f)];
-        imageView.clipsToBounds = YES;
-        imageView.tag = IMAGE_VIEW_TAG;
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         imageView.asynchronous = YES;
         imageView.reflectionScale = 0.5f;
@@ -170,7 +173,7 @@
         imageView.shadowBlur = 10.0f;
         view=imageView;
         
-        
+        [[AsyncImageLoader sharedLoader]cancelLoadingImagesForTarget:view];
 
         
     }
@@ -188,10 +191,8 @@
     //label.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"batman.jpg"]];
     //label.text = [_items[index] stringValue];
     //label.text = @"Hola";
-    
-    
     //cancel any previously loading images for this view
-    [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:view];
+    //[[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:view];
     
     //set image URL. AsyncImageView class will then dynamically load the image
     Movie *currentMovie = [items objectAtIndex:index];
