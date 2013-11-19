@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Movie.h"
 
-@interface XMLParser : NSObject <NSXMLParserDelegate>{
+@interface XMLParser : NSObject <NSXMLParserDelegate, NSURLConnectionDelegate>{
     NSMutableString *currentNodeContent;
     NSMutableArray *movies;
     NSXMLParser *parser;
@@ -18,6 +18,7 @@
 
 @property(readonly, retain) NSMutableArray *movies;
 
+-(id)loadXMLwithData:(NSData *)data;
 -(id)loadXMLByURL:(NSString *)urlString;
 
 @end

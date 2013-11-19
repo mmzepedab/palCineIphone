@@ -12,13 +12,26 @@
 @implementation XMLParser
 @synthesize movies;
 
+
+-(id) loadXMLwithData:(NSData *)data{
+    //NSLog(@"%@",data);
+    movies = [[NSMutableArray alloc] init];
+    //NSURL *url = [NSURL URLWithString:urlString];
+    //NSData *data = [[NSData alloc] initWithContentsOfURL:url];
+    parser = [[NSXMLParser alloc] initWithData:data];
+    parser.delegate = self;
+    [parser parse];
+    
+    return self;
+}
+
 -(id) loadXMLByURL:(NSString *)urlString{
     movies = [[NSMutableArray alloc] init];
     NSURL *url = [NSURL URLWithString:urlString];
     NSData *data = [[NSData alloc] initWithContentsOfURL:url];
     parser = [[NSXMLParser alloc] initWithData:data];
     parser.delegate = self;
-    [parser parse];
+    [parser parse];         
     
     return self;
 }
@@ -71,5 +84,6 @@
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
     currentNodeContent = (NSMutableString *) [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
+
 
 @end

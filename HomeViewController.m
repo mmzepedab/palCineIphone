@@ -25,7 +25,7 @@
 @synthesize tabBar;
 @synthesize items;
 
-
+//@synthesize receivedData;
 
 
 
@@ -55,12 +55,12 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.items = [NSMutableArray array];
+        
+        //receivedData = [[NSData alloc] init];
         self.tabBar.selectedItem = self.tabBar.items[0];
         //[tabBar setSelectedItem:[tabBar.items objectAtIndex:0]];
-        xmlParser = [[XMLParser alloc]loadXMLByURL:@"http://palcine.me/api/movies?loc=tgu"];
+        //xmlParser = [[XMLParser alloc]loadXMLByURL:@"http://palcine.me/api/movies?loc=pro"];
         
-        items = [xmlParser movies];
         
         //for (int i = 0; i < 5; i++)
         //{
@@ -77,17 +77,23 @@
     
     
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(methodtocallWebservices) name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+        
+        
+        [self methodtocallWebservices];
     //xmlParser = [[XMLParser alloc]loadXMLByURL:@"http://palcine.me/palcineweb/ws/movieList.php"];
-    carousel.type = iCarouselTypeCoverFlow;
+    
     //Movie *currentMovie = [[xmlParser movies] objectAtIndex:1];
     //NSLog(currentMovie.image_thumbnail);
     // Do any additional setup after loading the view from its nib.
     //configure carousel
-    CALayer *btnLayer = [toMovieTimeBtn layer];
+    //CALayer *btnLayer = [toMovieTimeBtn layer];
     //[btnLayer setMasksToBounds:YES];
     //[btnLayer setCornerRadius:5.0f];
     
-    CALayer *btnLayer2 = [toMovieTheaterBtn layer];
+    //CALayer *btnLayer2 = [toMovieTheaterBtn layer];
     //[btnLayer2 setMasksToBounds:YES];
     //[btnLayer2 setCornerRadius:5.0f];
     
@@ -126,7 +132,7 @@
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
     //return the total number of items in the carousel
-    //NSLog(@"%d",[items count]);
+    NSLog(@"%d",[items count]);
     return [items count];
     //Movie *currentMovie = [xmlParser movies];
     //NSLog(@"%d",[[xmlParser movies] count]);
@@ -163,7 +169,18 @@
         //view.backgroundColor = [UIColor clearColor];
         
         FXImageView *imageView = [[FXImageView alloc] initWithFrame:CGRectMake(0, 0, 170.0f, 230.0f)];
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        
+        [imageView.layer setBorderColor: [[UIColor colorWithRed:224/255.0f green:224/255.0f blue:224/255.0f alpha:1.0f] CGColor]];
+        [imageView.layer setBorderWidth: 1.0];
+        imageView.backgroundColor = [UIColor colorWithRed:244/255.0f green:246/255.0f blue:247/255.0f alpha:1.0f];
+        UIActivityIndicatorView *spinner = [[[UIActivityIndicatorView alloc]
+                                             initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] autorelease];
+        
+        [imageView addSubview:spinner];
+        [spinner startAnimating];
+        spinner.center = imageView.center;
+        [imageView sendSubviewToBack: spinner];
+        imageView.contentMode = UIViewContentModeScaleToFill;
         imageView.asynchronous = YES;
         imageView.reflectionScale = 0.5f;
         imageView.reflectionAlpha = 0.25f;
@@ -197,7 +214,7 @@
     //set image URL. AsyncImageView class will then dynamically load the image
     Movie *currentMovie = [items objectAtIndex:index];
     NSString *imgURL = [[NSString alloc]initWithFormat:@"http://palcine.me/images/movies/%@",currentMovie.imageURL];
-    NSLog(currentMovie.imageURL);
+    //NSLog(currentMovie.imageURL);
     NSURL *url = [NSURL URLWithString:imgURL];
     ((AsyncImageView *)view).imageURL = url;
     //((FXImageView *)view).image = movieImage.image;
@@ -221,4 +238,114 @@
     [myAlert show];
     
 }
+
+
+-(void)methodtocallWebservices{
+    NSLog(@"Call WS");
+    alertLoader = [[UIAlertView alloc] initWithTitle:@"" message:@"Descargando información..." delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+    alertLoader.tag=1;
+    [alertLoader show];
+}
+
+- (void)didPresentAlertView:(UIAlertView *)alertView
+{
+    if (alertView.tag== 1) {
+        NSLog(@"alertView");
+        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        indicator.center = CGPointMake(alertView.bounds.size.width/2, alertView.bounds.size.height/3 * 2);
+        [indicator startAnimating];
+        [alertView addSubview:indicator];
+        NSString *hostStr = @"http://palcine.me/api/movies";
+        NSURL *url = [[NSURL alloc] initWithString:hostStr];
+        NSLog(@"login url:  %@",url);
+        receivedData = [NSMutableData dataWithCapacity: 0];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
+        //(void)[[NSURLConnection alloc] initWithRequest:request delegate:self];
+        //[url release];
+        if (!theConnection) {
+            // Release the receivedData object.
+            NSLog(@"No connection");
+            receivedData = nil;
+            
+            // Inform the user that the connection failed.
+        }
+    }
+}
+
+#pragma mark -
+#pragma mark NSUrlConnection methods
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    // This method is called when the server has determined that it
+    // has enough information to create the NSURLResponse object.
+    
+    // It can be called multiple times, for example in the case of a
+    // redirect, so each time we reset the data.
+    
+    // receivedData is an instance variable declared elsewhere.
+    [receivedData setLength:0];
+}
+
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
+    //  [self.receivedData appendData:data];
+    [receivedData appendData:data];
+    //receivedData = data;
+    
+    
+    //[alertLoader release];
+    //xmlParser = [[XMLParser alloc]loadXMLByURL:@"http://palcine.me/api/movies"];
+    //NSLog(@"%@",data);
+    
+    
+}
+
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    [self stopLoading];
+    //[self handleError:error];
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection{
+    // do something with the data
+    // receivedData is declared as a property elsewhere
+    //NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
+    
+    // Release the connection and the data object
+    // by setting the properties (declared elsewhere)
+    // to nil.  Note that a real-world app usually
+    // requires the delegate to manage more than one
+    // connection at a time, so these lines would
+    // typically be replaced by code to iterate through
+    // whatever data structures you are using.
+    //theConnection = nil;
+    //receivedData = nil;
+    [self stopLoading];
+}
+-(void)stopLoading
+{
+    self.items = [NSMutableArray array];
+    xmlParser = [[XMLParser alloc]loadXMLwithData:receivedData];
+    self.items = [xmlParser movies];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //NSLog(@"%@",receivedData);
+        
+        
+        //NSLog(@"%d",[self.items count]);
+        if ([self.items count]>0) {
+            [alertLoader dismissWithClickedButtonIndex:0 animated:YES];
+            carousel.type = iCarouselTypeCoverFlow;
+            [carousel reloadData];
+        }else{
+            [self methodtocallWebservices];
+        }
+        
+        
+        
+        
+        
+    });
+}
+
 @end
