@@ -9,8 +9,12 @@
 #import "HomeViewController.h"
 #import "Movie.h"
 #import "AsyncImageView.h"
+#import "LoadingView.h"
 
-@interface HomeViewController ()
+@interface HomeViewController (){
+    LoadingView *loadingView;
+
+}
 
 @property (nonatomic, strong) NSMutableArray *items;
 
@@ -232,6 +236,19 @@
 }
 
 
+#pragma mark -
+#pragma mark iCarousel taps
+
+- (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
+{
+    Movie *currentMovie = [items objectAtIndex:index];
+    NSNumber *item = (self.items)[index];
+    NSLog(@"Pelicual: %@", currentMovie.name);
+}
+
+
+
+
 - (IBAction)toMovieTimeAction:(id)sender {
     
     UIAlertView *myAlert = [[UIAlertView alloc]initWithTitle:@"Huh" message:@"Todo bien" delegate:self cancelButtonTitle:@"Adios" otherButtonTitles: nil];
@@ -242,9 +259,35 @@
 
 -(void)methodtocallWebservices{
     NSLog(@"Call WS");
-    alertLoader = [[UIAlertView alloc] initWithTitle:@"" message:@"Descargando información..." delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
-    alertLoader.tag=1;
-    [alertLoader show];
+    loadingView =
+    [LoadingView loadingViewInView:self.view];
+    CGRect newFrame = loadingView.frame;
+    
+    newFrame.size.width = 200;
+    newFrame.size.height = 200;
+    [loadingView setFrame:newFrame];
+    loadingView.center = self.view.center;
+    
+    NSString *hostStr = @"http://palcine.me/api/movies";
+    NSURL *url = [[NSURL alloc] initWithString:hostStr];
+    NSLog(@"login url:  %@",url);
+    receivedData = [NSMutableData dataWithCapacity: 0];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
+    //(void)[[NSURLConnection alloc] initWithRequest:request delegate:self];
+    //[url release];
+    if (!theConnection) {
+        // Release the receivedData object.
+        NSLog(@"No connection");
+        receivedData = nil;
+        
+        // Inform the user that the connection failed.
+    }
+    
+    //[loadingView init];
+    //alertLoader = [[UIAlertView alloc] initWithTitle:@"" message:@"Descargando información..." delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+    //alertLoader.tag=1;
+    //[alertLoader show];
 }
 
 - (void)didPresentAlertView:(UIAlertView *)alertView
@@ -255,21 +298,6 @@
         indicator.center = CGPointMake(alertView.bounds.size.width/2, alertView.bounds.size.height/3 * 2);
         [indicator startAnimating];
         [alertView addSubview:indicator];
-        NSString *hostStr = @"http://palcine.me/api/movies";
-        NSURL *url = [[NSURL alloc] initWithString:hostStr];
-        NSLog(@"login url:  %@",url);
-        receivedData = [NSMutableData dataWithCapacity: 0];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-        NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
-        //(void)[[NSURLConnection alloc] initWithRequest:request delegate:self];
-        //[url release];
-        if (!theConnection) {
-            // Release the receivedData object.
-            NSLog(@"No connection");
-            receivedData = nil;
-            
-            // Inform the user that the connection failed.
-        }
     }
 }
 
@@ -334,9 +362,10 @@
         
         //NSLog(@"%d",[self.items count]);
         if ([self.items count]>0) {
-            [alertLoader dismissWithClickedButtonIndex:0 animated:YES];
+            //[alertLoader dismissWithClickedButtonIndex:0 animated:YES];
             carousel.type = iCarouselTypeCoverFlow;
             [carousel reloadData];
+            [loadingView removeView];
         }else{
             [self methodtocallWebservices];
         }
