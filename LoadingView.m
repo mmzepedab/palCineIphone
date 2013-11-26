@@ -191,7 +191,7 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 	CGContextFillPath(context);
 
 	const CGFloat STROKE_OPACITY = 0.25;
-	CGContextSetRGBStrokeColor(context, 1, 1, 1, STROKE_OPACITY);
+	CGContextSetRGBStrokeColor(context, 0, 0, 0, STROKE_OPACITY);
 	CGContextAddPath(context, roundRectPath);
 	CGContextStrokePath(context);
 	

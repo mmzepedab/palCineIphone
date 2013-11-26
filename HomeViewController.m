@@ -110,7 +110,8 @@
         self.navigationController.navigationBar.translucent = NO;
     }else {
         self.navigationController.navigationBar.tintColor = [[UIColor alloc]initWithRed:0 green:0.301 blue:0.6 alpha:100];
-        
+        //self.navigationController.navigationBar.backgroundColor = [[UIColor alloc]initWithRed:0 green:0.301 blue:0.6 alpha:100];
+        //[[UINavigationBar appearance] setBackgroundColor:[UIColor redColor]];
     }
     
     
