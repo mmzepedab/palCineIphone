@@ -29,6 +29,8 @@
 @synthesize tabBar;
 @synthesize items;
 
+
+
 //@synthesize receivedData;
 
 
@@ -61,7 +63,10 @@
         // Custom initialization
         
         //receivedData = [[NSData alloc] init];
-        self.tabBar.selectedItem = self.tabBar.items[0];
+        //self.tabBar.selectedItem = self.tabBar.items[0];
+        UIImage* tabImage = [UIImage imageNamed:@"palCineIcon.png"];
+        UITabBarItem* theItem = [[UITabBarItem alloc] initWithTitle:@"voy palCine" image:tabImage tag:0];
+        self.tabBarItem = theItem;
         //[tabBar setSelectedItem:[tabBar.items objectAtIndex:0]];
         //xmlParser = [[XMLParser alloc]loadXMLByURL:@"http://palcine.me/api/movies?loc=pro"];
         
@@ -78,9 +83,11 @@
 - (void)viewDidLoad
 {
     
-    
-    
     [super viewDidLoad];
+    
+    
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(methodtocallWebservices) name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
@@ -137,7 +144,7 @@
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
     //return the total number of items in the carousel
-    NSLog(@"%d",[items count]);
+    //NSLog(@"%d",[items count]);
     return [items count];
     //Movie *currentMovie = [xmlParser movies];
     //NSLog(@"%d",[[xmlParser movies] count]);
@@ -168,12 +175,12 @@
         //label.tag = 1;
         //[view addSubview:label];
         
-        view = [[[AsyncImageView alloc] initWithFrame:CGRectMake(0, 0, 170.0f, 230.0f)] autorelease];
+        view = [[[AsyncImageView alloc] initWithFrame:CGRectMake(0, 0, 136.0f, 184.0f)] autorelease];
         //view.contentMode = UIViewContentModeScaleAspectFit;
         //view.contentMode = UIViewContentModeScaleAspectFit;
         //view.backgroundColor = [UIColor clearColor];
         
-        FXImageView *imageView = [[FXImageView alloc] initWithFrame:CGRectMake(0, 0, 170.0f, 230.0f)];
+        FXImageView *imageView = [[FXImageView alloc] initWithFrame:CGRectMake(0, 0, 136.0f, 184.0f)];
         
         [imageView.layer setBorderColor: [[UIColor colorWithRed:224/255.0f green:224/255.0f blue:224/255.0f alpha:1.0f] CGColor]];
         [imageView.layer setBorderWidth: 1.0];
@@ -259,7 +266,7 @@
 
 
 -(void)methodtocallWebservices{
-    NSLog(@"Call WS");
+    //NSLog(@"Call WS");
     loadingView =
     [LoadingView loadingViewInView:self.view];
     CGRect newFrame = loadingView.frame;
@@ -271,7 +278,7 @@
     
     NSString *hostStr = @"http://palcine.me/api/movies";
     NSURL *url = [[NSURL alloc] initWithString:hostStr];
-    NSLog(@"login url:  %@",url);
+    //NSLog(@"login url:  %@",url);
     receivedData = [NSMutableData dataWithCapacity: 0];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -361,7 +368,7 @@
         //NSLog(@"%@",receivedData);
         
         
-        //NSLog(@"%d",[self.items count]);
+        NSLog(@"Huh? %d",[self.items count]);
         if ([self.items count]>0) {
             //[alertLoader dismissWithClickedButtonIndex:0 animated:YES];
             carousel.type = iCarouselTypeCoverFlow;
@@ -377,5 +384,10 @@
         
     });
 }
+
+
+
+
+
 
 @end

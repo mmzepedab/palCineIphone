@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *toMovieTimeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *toMovieTheaterBtn;
 
+
 //-(void)loadXMLParser;
 - (IBAction)toMovieTimeAction:(id)sender;
 

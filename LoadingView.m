@@ -158,8 +158,9 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 - (void)removeView
 {
 	UIView *aSuperview = [self superview];
-	[super removeFromSuperview];
-
+	
+    [super removeFromSuperview];
+    
 	// Set up the animation
 	CATransition *animation = [CATransition animation];
 	[animation setType:kCATransitionFade];

@@ -8,11 +8,17 @@
 
 #import "AppDelegate.h"
 #import "HomeViewController.h"
+#import "ComingSoonViewController.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
+
+@synthesize mainTabBarController;
+@synthesize tabBarController;
 @synthesize navController;
+@synthesize comingSoonNavController;
+
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
@@ -23,11 +29,25 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     //self.window.backgroundColor = [UIColor yellowColor];
-    HomeViewController *home = [[HomeViewController alloc]initWithNibName:@"HomeViewController" bundle:Nil];
-    self.navController = [[UINavigationController alloc]initWithRootViewController:home];
-    [self.window addSubview:self.navController.view];
+    //self.tabBarController = [[UITabBarController alloc]init];
+    self.mainTabBarController = [[MainTabBarViewController alloc]initWithNibName:@"MainTabBarViewController" bundle:nil];
+    //mainTabBarController.tabBar.frame = CGRectMake(0, 380, 320, 50);
     
-    self.window.backgroundColor = [UIColor whiteColor];
+    HomeViewController *home = [[HomeViewController alloc]initWithNibName:@"HomeViewController" bundle:Nil];
+    //ComingSoonViewController *comingSoonViewController = [[ComingSoonViewController alloc]initWithNibName:@"ComingSoonViewController" bundle:Nil];
+    ComingSoonViewController *comingSoonViewController = [[ComingSoonViewController alloc]init];
+
+    
+    self.navController = [[UINavigationController alloc]initWithRootViewController:home];
+    self.comingSoonNavController = [[UINavigationController alloc]initWithRootViewController:comingSoonViewController];
+    //[self.window addSubview:self.navController.view];
+    
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController,comingSoonNavController, nil];
+    self.mainTabBarController.viewControllers = [NSArray arrayWithObjects:navController,comingSoonNavController, nil];
+    //self.window.rootViewController  = self.tabBarController;
+    [self.window addSubview:self.mainTabBarController.view];
+    
+    //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
