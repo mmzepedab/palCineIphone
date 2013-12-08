@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "HomeViewController.h"
 #import "ComingSoonViewController.h"
+#import "MyLocationViewController.h"
 
 @implementation AppDelegate
 
@@ -18,6 +19,7 @@
 @synthesize tabBarController;
 @synthesize navController;
 @synthesize comingSoonNavController;
+@synthesize myLocationViewController;
 
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -34,16 +36,19 @@
     //mainTabBarController.tabBar.frame = CGRectMake(0, 380, 320, 50);
     
     HomeViewController *home = [[HomeViewController alloc]initWithNibName:@"HomeViewController" bundle:Nil];
+    MyLocationViewController *myLocation = [[MyLocationViewController alloc]initWithNibName:@"MyLocationViewController" bundle:nil];
+    
     //ComingSoonViewController *comingSoonViewController = [[ComingSoonViewController alloc]initWithNibName:@"ComingSoonViewController" bundle:Nil];
     ComingSoonViewController *comingSoonViewController = [[ComingSoonViewController alloc]init];
 
     
     self.navController = [[UINavigationController alloc]initWithRootViewController:home];
     self.comingSoonNavController = [[UINavigationController alloc]initWithRootViewController:comingSoonViewController];
+    self.myLocationViewController = [[UIViewController alloc]initWithNibName:@"MyLocationViewController" bundle:nil];
     //[self.window addSubview:self.navController.view];
     
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController,comingSoonNavController, nil];
-    self.mainTabBarController.viewControllers = [NSArray arrayWithObjects:navController,comingSoonNavController, nil];
+    //self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController,comingSoonNavController, nil];
+    self.mainTabBarController.viewControllers = [NSArray arrayWithObjects:navController,comingSoonNavController, myLocation, nil];
     //self.window.rootViewController  = self.tabBarController;
     [self.window addSubview:self.mainTabBarController.view];
     

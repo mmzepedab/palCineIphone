@@ -18,6 +18,7 @@
 }
 @property (nonatomic, strong) IBOutlet iCarousel *carousel;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
+@property (weak, nonatomic) IBOutlet UILabel *movieTitleLbl;
 
 //@property (nonatomic, assign) NSData *receivedData;
 @property (strong, nonatomic) NSArray *list;

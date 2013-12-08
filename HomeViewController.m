@@ -28,7 +28,7 @@
 @synthesize carousel;
 @synthesize tabBar;
 @synthesize items;
-
+@synthesize movieTitleLbl;
 
 
 //@synthesize receivedData;
@@ -84,7 +84,6 @@
 {
     
     [super viewDidLoad];
-    
     
     
     
@@ -250,11 +249,23 @@
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
 {
     Movie *currentMovie = [items objectAtIndex:index];
-    NSNumber *item = (self.items)[index];
+    //NSNumber *item = (self.items)[index];
     NSLog(@"Pelicual: %@", currentMovie.name);
 }
 
+- (void)carouselCurrentItemIndexUpdated:(iCarousel *)carousel
+{
+    //NSLog(@"No entiendo");
+    //int index= carousel.currentItemIndex;
+    
+}
 
+- (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel
+{
+   Movie *currentMovie = [items objectAtIndex:carousel.currentItemIndex];
+   movieTitleLbl.text = currentMovie.name;
+    
+}
 
 
 - (IBAction)toMovieTimeAction:(id)sender {
@@ -373,6 +384,8 @@
             //[alertLoader dismissWithClickedButtonIndex:0 animated:YES];
             carousel.type = iCarouselTypeCoverFlow;
             [carousel reloadData];
+            Movie *firstMovie = [self.items objectAtIndex:0];            
+            movieTitleLbl.text = firstMovie.name;
             [loadingView removeView];
         }else{
             [self methodtocallWebservices];
