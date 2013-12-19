@@ -388,6 +388,7 @@
             movieTitleLbl.text = firstMovie.name;
             [loadingView removeView];
         }else{
+            [loadingView removeView];
             [self methodtocallWebservices];
         }
         
