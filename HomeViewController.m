@@ -282,10 +282,10 @@
     [LoadingView loadingViewInView:self.view];
     CGRect newFrame = loadingView.frame;
     
-    newFrame.size.width = 200;
-    newFrame.size.height = 200;
-    [loadingView setFrame:newFrame];
-    loadingView.center = self.view.center;
+    //newFrame.size.width = 200;
+    //newFrame.size.height = 200;
+    //[loadingView setFrame:newFrame];
+    //loadingView.center = self.view.center;
     
     NSString *hostStr = @"http://palcine.me/api/movies";
     NSURL *url = [[NSURL alloc] initWithString:hostStr];

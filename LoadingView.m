@@ -104,7 +104,9 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 		[[UILabel alloc]
 			initWithFrame:labelFrame];
 	loadingLabel.text = NSLocalizedString(@"Descargando...", nil);
-	loadingLabel.textColor = [UIColor whiteColor];
+	//loadingLabel.textColor = [UIColor whiteColor];
+    UIColor * color = [UIColor colorWithRed:4/255.0f green:70/255.0f blue:126/255.0f alpha:1.0f];
+    loadingLabel.textColor = color;
 	loadingLabel.backgroundColor = [UIColor clearColor];
 	loadingLabel.textAlignment = UITextAlignmentCenter;
 	loadingLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
@@ -113,11 +115,13 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 		UIViewAutoresizingFlexibleRightMargin |
 		UIViewAutoresizingFlexibleTopMargin |
 		UIViewAutoresizingFlexibleBottomMargin;
-	
 	[loadingView addSubview:loadingLabel];
+    
+    
 	UIActivityIndicatorView *activityIndicatorView =
 		[[UIActivityIndicatorView alloc]
 			initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityIndicatorView.color = [UIColor grayColor];
 	[loadingView addSubview:activityIndicatorView];
 	activityIndicatorView.autoresizingMask =
 		UIViewAutoresizingFlexibleLeftMargin |
@@ -126,9 +130,11 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 		UIViewAutoresizingFlexibleBottomMargin;
 	[activityIndicatorView startAnimating];
 	
-	CGFloat totalHeight =
+	/*CGFloat totalHeight =
 		loadingLabel.frame.size.height +
-		activityIndicatorView.frame.size.height;
+		activityIndicatorView.frame.size.height;*/
+     
+     CGFloat totalHeight = 100;
 	labelFrame.origin.x = floor(0.5 * (loadingView.frame.size.width - DEFAULT_LABEL_WIDTH));
 	labelFrame.origin.y = floor(0.5 * (loadingView.frame.size.height - totalHeight));
 	loadingLabel.frame = labelFrame;
@@ -138,7 +144,7 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 	activityIndicatorRect.origin.x =
 		0.5 * (loadingView.frame.size.width - activityIndicatorRect.size.width);
 	activityIndicatorRect.origin.y =
-		loadingLabel.frame.origin.y + loadingLabel.frame.size.height + 50;
+		loadingLabel.frame.origin.y + loadingLabel.frame.size.height /*+ 50*/;
 	activityIndicatorView.frame = activityIndicatorRect;
 	
 	// Set up the fade-in animation
@@ -175,19 +181,25 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 //
 - (void)drawRect:(CGRect)rect
 {
-	rect.size.height -= 1;
-	rect.size.width -= 1;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+	//rect.size.height -= 1;
+	//rect.size.width -= 1;
+	rect.size.height = screenHeight;
+	rect.size.width = screenWidth;
+    
+	//const CGFloat RECT_PADDING = 8.0;
+	//rect = CGRectInset(rect, RECT_PADDING, RECT_PADDING);
 	
-	const CGFloat RECT_PADDING = 8.0;
-	rect = CGRectInset(rect, RECT_PADDING, RECT_PADDING);
-	
-	const CGFloat ROUND_RECT_CORNER_RADIUS = 10.0;
+	//const CGFloat ROUND_RECT_CORNER_RADIUS = 10.0;
+    const CGFloat ROUND_RECT_CORNER_RADIUS = 0.0;
 	CGPathRef roundRectPath = NewPathWithRoundRect(rect, ROUND_RECT_CORNER_RADIUS);
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();
 
 	const CGFloat BACKGROUND_OPACITY = 0.85;
-	CGContextSetRGBFillColor(context, 0, 0, 0, BACKGROUND_OPACITY);
+	CGContextSetRGBFillColor(context, 1, 1, 1, BACKGROUND_OPACITY);
 	CGContextAddPath(context, roundRectPath);
 	CGContextFillPath(context);
 
