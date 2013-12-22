@@ -7,9 +7,11 @@
 //
 
 #import "HomeViewController.h"
+#import "Reachability.h"
 #import "Movie.h"
 #import "AsyncImageView.h"
 #import "LoadingView.h"
+#import "MovieDetailViewController.h"
 
 @interface HomeViewController (){
     LoadingView *loadingView;
@@ -29,6 +31,7 @@
 @synthesize tabBar;
 @synthesize items;
 @synthesize movieTitleLbl;
+@synthesize noInternetLbl;
 
 
 //@synthesize receivedData;
@@ -61,6 +64,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        // Add Observer Reachability
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
         
         //receivedData = [[NSData alloc] init];
         //self.tabBar.selectedItem = self.tabBar.items[0];
@@ -250,7 +255,7 @@
 {
     Movie *currentMovie = [items objectAtIndex:index];
     //NSNumber *item = (self.items)[index];
-    NSLog(@"Pelicual: %@", currentMovie.name);
+    //NSLog(@"Pelicual: %@", currentMovie.name);
 }
 
 - (void)carouselCurrentItemIndexUpdated:(iCarousel *)carousel
@@ -269,25 +274,29 @@
 
 
 - (IBAction)toMovieTimeAction:(id)sender {
-    
+    /*
     UIAlertView *myAlert = [[UIAlertView alloc]initWithTitle:@"Huh" message:@"Todo bien" delegate:self cancelButtonTitle:@"Adios" otherButtonTitles: nil];
-    [myAlert show];
+    [myAlert show];*/
+    
+    MovieDetailViewController *viewController = [[MovieDetailViewController alloc]initWithNibName:@"MovieDetailViewController" bundle:nil];
+    [self.navigationController pushViewController:viewController animated:YES];
     
 }
 
 
 -(void)methodtocallWebservices{
     //NSLog(@"Call WS");
+    [loadingView removeView];
     loadingView =
     [LoadingView loadingViewInView:self.view];
-    CGRect newFrame = loadingView.frame;
+    //CGRect newFrame = loadingView.frame;
     
     //newFrame.size.width = 200;
     //newFrame.size.height = 200;
     //[loadingView setFrame:newFrame];
     //loadingView.center = self.view.center;
     
-    NSString *hostStr = @"http://palcine.me/api/movies";
+    NSString *hostStr = @"http://palcine.me/api/movies?loc=tgu";
     NSURL *url = [[NSURL alloc] initWithString:hostStr];
     //NSLog(@"login url:  %@",url);
     receivedData = [NSMutableData dataWithCapacity: 0];
@@ -356,8 +365,9 @@
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
     // do something with the data
     // receivedData is declared as a property elsewhere
-    //NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
-    
+    NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
+    //NSString *theXML = [[NSString alloc] initWithBytes:[receivedData mutableBytes] length:[receivedData length] encoding:NSUTF8StringEncoding];
+	//NSLog(theXML);
     // Release the connection and the data object
     // by setting the properties (declared elsewhere)
     // to nil.  Note that a real-world app usually
@@ -375,11 +385,11 @@
     xmlParser = [[XMLParser alloc]loadXMLwithData:receivedData];
     self.items = [xmlParser movies];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    //dispatch_async(dispatch_get_main_queue(), ^{
         //NSLog(@"%@",receivedData);
         
         
-        NSLog(@"Huh? %d",[self.items count]);
+        //NSLog(@"Huh? %d",[self.items count]);
         if ([self.items count]>0) {
             //[alertLoader dismissWithClickedButtonIndex:0 animated:YES];
             carousel.type = iCarouselTypeCoverFlow;
@@ -388,20 +398,43 @@
             movieTitleLbl.text = firstMovie.name;
             [loadingView removeView];
         }else{
+            [carousel reloadData];
             [loadingView removeView];
-            [self methodtocallWebservices];
+            //[self methodtocallWebservices];
         }
         
         
         
         
         
-    });
+    //});
 }
 
 
+- (void)reachabilityDidChange:(NSNotification *)notification {
+    Reachability *reachability = (Reachability *)[notification object];
+    UIAlertView *myAlert = [[UIAlertView alloc]initWithTitle:@"Sin Internet" message:@"Verifica tu conexion a internet" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    if ([reachability isReachable]) {
+        NSLog(@"Reachable");
+        noInternetLbl.hidden = true;
+        movieTitleLbl.hidden = false;
+        //[self performSelector:@selector(dismissAlert:) withObject:myAlert afterDelay:0];
+        //[myAlert show];
+        [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+        //[self methodtocallWebservices];
+        
+        [carousel reloadData];
+    } else {
+        movieTitleLbl.hidden = true;
+        noInternetLbl.hidden = false;
+        [myAlert show];
+        NSLog(@"Unreachable");
+    }
+}
 
-
+-(void)dismissAlert:(UIAlertView *)alertView{
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+}
 
 
 @end

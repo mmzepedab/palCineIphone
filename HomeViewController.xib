@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="carousel" destination="cAm-kh-f94" id="6e8-FA-PkS"/>
                 <outlet property="movieTitleLbl" destination="Ex2-dO-VzQ" id="cpt-3c-5c7"/>
+                <outlet property="noInternetLbl" destination="y2w-4u-k57" id="buz-BM-fFj"/>
                 <outlet property="toMovieTheaterBtn" destination="2MG-EN-HjV" id="ycA-p3-Qhv"/>
                 <outlet property="toMovieTimeBtn" destination="i7B-b3-Pdz" id="Duf-U9-Jbj"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -21,6 +22,15 @@
                 <view contentMode="scaleToFill" id="cAm-kh-f94" customClass="iCarousel">
                     <rect key="frame" x="0.0" y="-25" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sin Conexión a internet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y2w-4u-k57">
+                            <rect key="frame" x="70" y="229" width="180" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="WMF-bh-XyC"/>

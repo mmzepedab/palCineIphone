@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Reachability.h"
 #import "HomeViewController.h"
 #import "ComingSoonViewController.h"
 #import "MyLocationViewController.h"
@@ -28,6 +29,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Initialize Reachability
+    Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
+    // Start Monitoring
+    [reachability startNotifier];
+    
+    
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     //self.window.backgroundColor = [UIColor yellowColor];

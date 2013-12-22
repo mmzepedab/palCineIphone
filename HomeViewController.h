@@ -11,7 +11,7 @@
 #import "XMLParser.h"
 #import "FXImageView.h"
 
-@interface HomeViewController : UIViewController <iCarouselDataSource, iCarouselDelegate, NSURLConnectionDelegate>{
+@interface HomeViewController : UIViewController <iCarouselDataSource, iCarouselDelegate, NSURLConnectionDelegate ,UIAlertViewDelegate>{
     XMLParser *xmlParser;
     NSMutableData *receivedData;
     UIAlertView *alertLoader;
@@ -19,6 +19,7 @@
 @property (nonatomic, strong) IBOutlet iCarousel *carousel;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 @property (weak, nonatomic) IBOutlet UILabel *movieTitleLbl;
+@property (weak, nonatomic) IBOutlet UILabel *noInternetLbl;
 
 //@property (nonatomic, assign) NSData *receivedData;
 @property (strong, nonatomic) NSArray *list;
