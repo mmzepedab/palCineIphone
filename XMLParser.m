@@ -52,10 +52,26 @@
     if ([elementName isEqualToString:@"name"]){
         currentMovie.name = currentNodeContent;
     }
+    if ([elementName isEqualToString:@"name_english"]){
+        currentMovie.name_english = currentNodeContent;
+    }
+    if ([elementName isEqualToString:@"description"]){
+        currentMovie.description = currentNodeContent;
+    }
+    if ([elementName isEqualToString:@"release_date"]){
+        currentMovie.release_date = currentNodeContent;
+    }
+    if ([elementName isEqualToString:@"length"]){
+        currentMovie.length = currentNodeContent;
+    }
+    if ([elementName isEqualToString:@"restriction"]){
+        currentMovie.restriction = currentNodeContent;
+    }
     if([elementName isEqualToString:@"genre_id"]){
         currentMovie.genre = currentNodeContent;
     }
     if([elementName isEqualToString:@"image_thumbnail"]){
+        /*
         currentMovie.image_thumbnail = currentNodeContent;
 
         
@@ -63,7 +79,8 @@
         NSURL *url = [NSURL URLWithString:imgURL];
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *img = [[UIImage alloc] initWithData:data];
-        currentMovie.imageThumbnail = img;        
+        currentMovie.imageThumbnail = img;    
+         */
     }
     if([elementName isEqualToString:@"image"]){
         currentMovie.imageURL = currentNodeContent;

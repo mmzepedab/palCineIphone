@@ -254,6 +254,12 @@
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
 {
     Movie *currentMovie = [items objectAtIndex:index];
+    
+    MovieDetailViewController *viewController = [[MovieDetailViewController alloc]initWithNibName:@"MovieDetailViewController" bundle:nil];    
+    viewController.detailMovie = currentMovie;
+    //viewController.movieImageThumbnail =
+    [self.navigationController pushViewController:viewController animated:YES];
+    
     //NSNumber *item = (self.items)[index];
     //NSLog(@"Pelicual: %@", currentMovie.name);
 }
@@ -296,7 +302,7 @@
     //[loadingView setFrame:newFrame];
     //loadingView.center = self.view.center;
     
-    NSString *hostStr = @"http://palcine.me/api/movies?loc=tgu";
+    NSString *hostStr = @"http://palcine.me/api/movies";
     NSURL *url = [[NSURL alloc] initWithString:hostStr];
     //NSLog(@"login url:  %@",url);
     receivedData = [NSMutableData dataWithCapacity: 0];
