@@ -67,6 +67,9 @@
     if ([elementName isEqualToString:@"restriction"]){
         currentMovie.restriction = currentNodeContent;
     }
+    if ([elementName isEqualToString:@"trailer_link"]){
+        currentMovie.trailer_link = currentNodeContent;
+    }
     if([elementName isEqualToString:@"genre_id"]){
         currentMovie.genre = currentNodeContent;
     }
@@ -81,6 +84,9 @@
         UIImage *img = [[UIImage alloc] initWithData:data];
         currentMovie.imageThumbnail = img;    
          */
+    }
+    if([elementName isEqualToString:@"raiting"]){
+        currentMovie.raiting = currentNodeContent;
     }
     if([elementName isEqualToString:@"image"]){
         currentMovie.imageURL = currentNodeContent;

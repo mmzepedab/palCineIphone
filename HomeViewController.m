@@ -302,7 +302,7 @@
     //[loadingView setFrame:newFrame];
     //loadingView.center = self.view.center;
     
-    NSString *hostStr = @"http://palcine.me/api/movies";
+    NSString *hostStr = @"http://palcine.me/api/movies?loc=tgu";
     NSURL *url = [[NSURL alloc] initWithString:hostStr];
     //NSLog(@"login url:  %@",url);
     receivedData = [NSMutableData dataWithCapacity: 0];
