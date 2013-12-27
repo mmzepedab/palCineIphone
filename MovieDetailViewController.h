@@ -33,4 +33,6 @@
 
 
 - (IBAction)viewTrailer:(id)sender;
+- (IBAction)viewTimes:(id)sender;
+
 @end

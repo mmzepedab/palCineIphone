@@ -9,7 +9,6 @@
                 <outlet property="carousel" destination="cAm-kh-f94" id="6e8-FA-PkS"/>
                 <outlet property="movieTitleLbl" destination="Ex2-dO-VzQ" id="cpt-3c-5c7"/>
                 <outlet property="noInternetLbl" destination="y2w-4u-k57" id="buz-BM-fFj"/>
-                <outlet property="toMovieTheaterBtn" destination="2MG-EN-HjV" id="ycA-p3-Qhv"/>
                 <outlet property="toMovieTimeBtn" destination="i7B-b3-Pdz" id="Duf-U9-Jbj"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -48,7 +47,7 @@
                     <rect key="frame" x="0.0" y="319" width="320" height="50"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Como queres buscar tu pelicula?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YFE-ek-J0r">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¿Cómo quieres buscar tu película?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YFE-ek-J0r">
                     <rect key="frame" x="20" y="8" width="225" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -75,6 +74,9 @@
                     <state key="normal" title="Por Cine">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="toTheaterBtn:" destination="-1" eventType="touchUpInside" id="qDO-oy-iMV"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" id="6AB-3M-3mp">
                     <rect key="frame" x="20" y="29" width="280" height="1"/>

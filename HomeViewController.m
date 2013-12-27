@@ -12,10 +12,10 @@
 #import "AsyncImageView.h"
 #import "LoadingView.h"
 #import "MovieDetailViewController.h"
+#import "ToTheaterViewController.h"
 
 @interface HomeViewController (){
     LoadingView *loadingView;
-
 }
 
 @property (nonatomic, strong) NSMutableArray *items;
@@ -26,7 +26,6 @@
 
 @synthesize list;
 @synthesize toMovieTimeBtn;
-@synthesize toMovieTheaterBtn;
 @synthesize carousel;
 @synthesize tabBar;
 @synthesize items;
@@ -95,9 +94,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(methodtocallWebservices) name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
-        
-        
-        [self methodtocallWebservices];
+    //Call WebService
+    [self methodtocallWebservices];
+    
+    
+    
     //xmlParser = [[XMLParser alloc]loadXMLByURL:@"http://palcine.me/palcineweb/ws/movieList.php"];
     
     //Movie *currentMovie = [[xmlParser movies] objectAtIndex:1];
@@ -273,8 +274,10 @@
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel
 {
-   Movie *currentMovie = [items objectAtIndex:carousel.currentItemIndex];
-   movieTitleLbl.text = currentMovie.name;
+    Movie *currentMovie = [items objectAtIndex:carousel.currentItemIndex];
+    self.carouselMovieId = currentMovie.id;
+    self.carouselMovieName = currentMovie.name;
+    movieTitleLbl.text = currentMovie.name;
     
 }
 
@@ -312,7 +315,7 @@
     //[url release];
     if (!theConnection) {
         // Release the receivedData object.
-        NSLog(@"No connection");
+        //NSLog(@"No connection");
         receivedData = nil;
         
         // Inform the user that the connection failed.
@@ -327,7 +330,7 @@
 - (void)didPresentAlertView:(UIAlertView *)alertView
 {
     if (alertView.tag== 1) {
-        NSLog(@"alertView");
+        //NSLog(@"alertView");
         UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         indicator.center = CGPointMake(alertView.bounds.size.width/2, alertView.bounds.size.height/3 * 2);
         [indicator startAnimating];
@@ -371,7 +374,7 @@
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
     // do something with the data
     // receivedData is declared as a property elsewhere
-    NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
+    //NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
     //NSString *theXML = [[NSString alloc] initWithBytes:[receivedData mutableBytes] length:[receivedData length] encoding:NSUTF8StringEncoding];
 	//NSLog(theXML);
     // Release the connection and the data object
@@ -400,7 +403,9 @@
             //[alertLoader dismissWithClickedButtonIndex:0 animated:YES];
             carousel.type = iCarouselTypeCoverFlow;
             [carousel reloadData];
-            Movie *firstMovie = [self.items objectAtIndex:0];            
+            Movie *firstMovie = [self.items objectAtIndex:0];
+            self.carouselMovieId = firstMovie.id;
+            self.carouselMovieName = firstMovie.name;
             movieTitleLbl.text = firstMovie.name;
             [loadingView removeView];
         }else{
@@ -421,7 +426,7 @@
     Reachability *reachability = (Reachability *)[notification object];
     UIAlertView *myAlert = [[UIAlertView alloc]initWithTitle:@"Sin Internet" message:@"Verifica tu conexion a internet" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
     if ([reachability isReachable]) {
-        NSLog(@"Reachable");
+        //NSLog(@"Reachable");
         noInternetLbl.hidden = true;
         movieTitleLbl.hidden = false;
         //[self performSelector:@selector(dismissAlert:) withObject:myAlert afterDelay:0];
@@ -434,7 +439,7 @@
         movieTitleLbl.hidden = true;
         noInternetLbl.hidden = false;
         [myAlert show];
-        NSLog(@"Unreachable");
+        //NSLog(@"Unreachable");
     }
 }
 
@@ -443,4 +448,12 @@
 }
 
 
+- (IBAction)toTheaterBtn:(id)sender {
+    
+    ToTheaterViewController *toTheaterViewController = [[ToTheaterViewController alloc]initWithNibName:@"ToTheaterViewController" bundle:nil];
+    toTheaterViewController.movieId = self.carouselMovieId;
+    toTheaterViewController.movieName = self.carouselMovieName;
+    [self.navigationController pushViewController:toTheaterViewController animated:YES];
+    
+}
 @end

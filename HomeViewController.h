@@ -24,8 +24,11 @@
 //@property (nonatomic, assign) NSData *receivedData;
 @property (strong, nonatomic) NSArray *list;
 @property (weak, nonatomic) IBOutlet UIButton *toMovieTimeBtn;
-@property (weak, nonatomic) IBOutlet UIButton *toMovieTheaterBtn;
 
+@property (weak, nonatomic) NSString  *carouselMovieId;
+@property (weak, nonatomic) NSString  *carouselMovieName;
+
+- (IBAction)toTheaterBtn:(id)sender;
 
 //-(void)loadXMLParser;
 - (IBAction)toMovieTimeAction:(id)sender;
