@@ -7,8 +7,12 @@
 //
 
 #import "ToTheaterTimeViewController.h"
+#import "LoadingView.h"
+#import "ToTheaterDetailViewController.h"
 
-@interface ToTheaterTimeViewController ()
+@interface ToTheaterTimeViewController (){
+    LoadingView *loadingView;
+}
 
 @property (nonatomic, strong) NSMutableArray *items;
 
@@ -22,6 +26,7 @@
 @synthesize theaterId;
 @synthesize theaterName;
 @synthesize movieId;
+@synthesize movieName;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -86,11 +91,27 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+    ToTheaterDetailViewController *toTheaterDetailViewController = [[ToTheaterDetailViewController alloc]initWithNibName:@"ToTheaterDetailViewController" bundle:nil];
+    Time *currentTime = [self.items objectAtIndex:indexPath.row];
+    toTheaterDetailViewController.time = currentTime.time;
+    toTheaterDetailViewController.roomName = currentTime.roomName;
+    toTheaterDetailViewController.movieName = movieName;
+    [self.navigationController pushViewController:toTheaterDetailViewController animated:YES];
+}
+
 #pragma mark -
 #pragma mark WebService Call
 -(void)methodtocallWebservices{
+    loadingView =
+    [LoadingView loadingViewInView:self.view];
+    // create a standardUserDefaults variable
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    // getting an NSString object
+    NSString *loc = [standardUserDefaults stringForKey:@"loc"];
     
-    NSString *hostStr = [NSString stringWithFormat:@"http://www.palcine.me/api/movieRoomTimes/?loc=tgu&t_id=%@&m_id=%@",theaterId, movieId];
+    NSString *hostStr = [NSString stringWithFormat:@"http://www.palcine.me/api/movieRoomTimes/?loc=%@&t_id=%@&m_id=%@",loc,theaterId, movieId];
     //NSString *hostStr = @"http://www.palcine.me/api/movieRoomTimes/?loc=tgu&t_id=11&m_id=19";
     NSURL *url = [[NSURL alloc] initWithString:hostStr];
     receivedData = [NSMutableData dataWithCapacity: 0];
@@ -138,6 +159,7 @@
     if ([self.items count]>0) {
         //[alertLoader dismissWithClickedButtonIndex:0 animated:YES];
         [timeTableView reloadData];
+        [loadingView removeView];
     }else{
         //[self methodtocallWebservices];
     }

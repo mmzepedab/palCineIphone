@@ -20,7 +20,7 @@
 @synthesize tabBarController;
 @synthesize navController;
 @synthesize comingSoonNavController;
-@synthesize myLocationViewController;
+//@synthesize myLocationViewController;
 
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -44,19 +44,20 @@
     //mainTabBarController.tabBar.frame = CGRectMake(0, 380, 320, 50);
     
     HomeViewController *home = [[HomeViewController alloc]initWithNibName:@"HomeViewController" bundle:Nil];
-    MyLocationViewController *myLocation = [[MyLocationViewController alloc]initWithNibName:@"MyLocationViewController" bundle:nil];
+    //MyLocationViewController *myLocation = [[MyLocationViewController alloc]initWithNibName:@"MyLocationViewController" bundle:nil];
     
     //ComingSoonViewController *comingSoonViewController = [[ComingSoonViewController alloc]initWithNibName:@"ComingSoonViewController" bundle:Nil];
     ComingSoonViewController *comingSoonViewController = [[ComingSoonViewController alloc]init];
+    MyLocationViewController *myLocationVC = [[MyLocationViewController alloc]init];
 
     
     self.navController = [[UINavigationController alloc]initWithRootViewController:home];
     self.comingSoonNavController = [[UINavigationController alloc]initWithRootViewController:comingSoonViewController];
-    self.myLocationViewController = [[UIViewController alloc]initWithNibName:@"MyLocationViewController" bundle:nil];
+    self.myLocationViewController = [[UINavigationController alloc]initWithRootViewController:myLocationVC];
     //[self.window addSubview:self.navController.view];
     
     //self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController,comingSoonNavController, nil];
-    self.mainTabBarController.viewControllers = [NSArray arrayWithObjects:navController,comingSoonNavController, myLocation, nil];
+    self.mainTabBarController.viewControllers = [NSArray arrayWithObjects:navController,comingSoonNavController, self.myLocationViewController, nil];
     //self.window.rootViewController  = self.tabBarController;
     [self.window addSubview:self.mainTabBarController.view];
     

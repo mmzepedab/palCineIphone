@@ -19,7 +19,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *navController;
 @property (strong, nonatomic) UINavigationController *comingSoonNavController;
-@property (strong, nonatomic) UIViewController *myLocationViewController;
+@property (strong, nonatomic) UINavigationController *myLocationViewController;
 
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;

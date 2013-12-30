@@ -8,8 +8,11 @@
 
 #import "ToTheaterViewController.h"
 #import "ToTheaterTimeViewController.h"
+#import "LoadingView.h"
 
-@interface ToTheaterViewController ()
+@interface ToTheaterViewController (){
+    LoadingView *loadingView;
+}
 
 @property (nonatomic, strong) NSMutableArray *items;
 
@@ -92,6 +95,7 @@
     toTheaterTimeViewController.theaterId = currentTheater.id;
     toTheaterTimeViewController.theaterName = currentTheater.name;
     toTheaterTimeViewController.movieId = movieId;
+    toTheaterTimeViewController.movieName = movieName;
     
     [self.navigationController pushViewController:toTheaterTimeViewController animated:YES];
 }
@@ -100,7 +104,14 @@
 #pragma mark WebService Call
 -(void)methodtocallWebservices{
     
-    NSString *hostStr = [NSString stringWithFormat:@"http://palcine.me/api/theaters/?loc=tgu&m_id=%@",movieId];
+    loadingView =
+    [LoadingView loadingViewInView:self.view];
+    // create a standardUserDefaults variable
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    // getting an NSString object
+    NSString *loc = [standardUserDefaults stringForKey:@"loc"];
+    
+    NSString *hostStr = [NSString stringWithFormat:@"http://palcine.me/api/theaters/?loc=%@&m_id=%@",loc,movieId];
     NSURL *url = [[NSURL alloc] initWithString:hostStr];
     receivedData = [NSMutableData dataWithCapacity: 0];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -147,6 +158,7 @@
     if ([self.items count]>0) {
         //[alertLoader dismissWithClickedButtonIndex:0 animated:YES];
         [theaterTableView reloadData];
+        [loadingView removeView];
     }else{
         //[self methodtocallWebservices];
     }

@@ -19,6 +19,8 @@
 @property (weak, nonatomic) NSString  *theaterId;
 @property (weak, nonatomic) NSString  *theaterName;
 @property (weak, nonatomic) NSString  *movieId;
+@property (weak, nonatomic) NSString  *movieName;
+
 
 @property (weak, nonatomic) IBOutlet UITableView *timeTableView;
 

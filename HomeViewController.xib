@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
                 <outlet property="carousel" destination="cAm-kh-f94" id="6e8-FA-PkS"/>
+                <outlet property="dateLbl" destination="YFE-ek-J0r" id="vdv-vK-oKo"/>
                 <outlet property="movieTitleLbl" destination="Ex2-dO-VzQ" id="cpt-3c-5c7"/>
                 <outlet property="noInternetLbl" destination="y2w-4u-k57" id="buz-BM-fFj"/>
                 <outlet property="toMovieTimeBtn" destination="i7B-b3-Pdz" id="Duf-U9-Jbj"/>
@@ -47,14 +48,14 @@
                     <rect key="frame" x="0.0" y="319" width="320" height="50"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¿Cómo quieres buscar tu película?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YFE-ek-J0r">
-                    <rect key="frame" x="20" y="8" width="225" height="21"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cartelera para Tegucigalpa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YFE-ek-J0r">
+                    <rect key="frame" x="20" y="8" width="280" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i7B-b3-Pdz">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i7B-b3-Pdz">
                     <rect key="frame" x="20" y="42" width="123" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.040252594429132406" green="0.34640587892601954" blue="0.61270805027173914" alpha="1" colorSpace="calibratedRGB"/>
@@ -67,11 +68,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2MG-EN-HjV">
-                    <rect key="frame" x="177" y="42" width="123" height="44"/>
+                    <rect key="frame" x="20" y="42" width="280" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.040252594429999997" green="0.34640587890000002" blue="0.61270805029999997" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="Por Cine">
+                    <state key="normal" title="Ver Horarios">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </state>
                     <connections>

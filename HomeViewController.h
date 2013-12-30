@@ -27,6 +27,7 @@
 
 @property (weak, nonatomic) NSString  *carouselMovieId;
 @property (weak, nonatomic) NSString  *carouselMovieName;
+@property (weak, nonatomic) IBOutlet UILabel *dateLbl;
 
 - (IBAction)toTheaterBtn:(id)sender;
 

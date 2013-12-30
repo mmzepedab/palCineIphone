@@ -38,13 +38,16 @@
         CGRect newFrame =CGRectMake(oldFrame.origin.x, oldFrame.origin.y, oldFrame.size.width, oldFrame.size.height-200);
         [timesWebView setFrame:newFrame];
     
-    
+    // create a standardUserDefaults variable
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    // getting an NSString object
+    NSString *loc = [standardUserDefaults stringForKey:@"loc"];
     
     
     timesWebView.scalesPageToFit = NO;
     //timesWebView.delegate = self;
     [timesWebView.scrollView setZoomScale:1.0];
-    NSString *myUrl = [NSString stringWithFormat:@"http://palcine.me/movie/times?m_id=%@&loc=tgu",movieId];    
+    NSString *myUrl = [NSString stringWithFormat:@"http://palcine.me/movie/times?m_id=%@&loc=%@",movieId,loc];
     NSURL *url = [NSURL URLWithString:myUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [timesWebView setScalesPageToFit:NO];
