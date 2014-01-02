@@ -97,6 +97,81 @@
         [self methodtocallWebservices];
     }
     
+    NSCalendar* cal = [NSCalendar currentCalendar];
+    NSDateComponents* comp = [cal components:NSWeekdayCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:[NSDate date]];
+    NSString *day;
+    switch ([comp weekday]) {
+        case 1:
+            day = @"Domingo";
+            break;
+        case 2:
+            day = @"Lunes";
+            break;
+        case 3:
+            day = @"Martes";
+            break;
+        case 4:
+            day = @"Miércoles";
+            break;
+        case 5:
+            day = @"Jueves";
+            break;
+        case 6:
+            day = @"Viernes";
+            break;
+        case 7:
+            day = @"Sábado";
+            break;
+        default:
+            break;
+    }
+    
+    NSString *month;
+    switch ([comp month]) {
+        case 1:
+            month = @"Enero";
+            break;
+        case 2:
+            month = @"Febrero";
+            break;
+        case 3:
+            month = @"Marzo";
+            break;
+        case 4:
+            month = @"Abril";
+            break;
+        case 5:
+            month = @"Mayo";
+            break;
+        case 6:
+            month = @"Junio";
+            break;
+        case 7:
+            month = @"Julio";
+            break;
+        case 8:
+            month = @"Agosto";
+            break;
+        case 9:
+            month = @"Septiembre";
+            break;
+        case 10:
+            month = @"Octubre";
+            break;
+        case 11:
+            month = @"Noviembre";
+            break;
+        case 12:
+            month = @"Diciembre";
+            break;
+        default:
+            break;
+    }
+    
+    
+    
+    dateLbl.text = [NSString stringWithFormat:@"Cartelera para hoy %@ %d de %@", day, [comp day], month];
+    
 }
 
 - (void)viewDidLoad
@@ -362,9 +437,9 @@
     
 }
 
-- (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel
+- (void)carouselCurrentItemIndexDidChange:(iCarousel *)myCarousel
 {
-    Movie *currentMovie = [items objectAtIndex:carousel.currentItemIndex];
+    Movie *currentMovie = [items objectAtIndex:myCarousel.currentItemIndex];
     self.carouselMovieId = currentMovie.id;
     self.carouselMovieName = currentMovie.name;
     movieTitleLbl.text = currentMovie.name;
