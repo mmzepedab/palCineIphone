@@ -10,6 +10,7 @@
 #import "AsyncImageView.h"
 #import "VideoViewController.h"
 #import "TimesViewController.h"
+#import "ViewTrailerViewController.h"
 
 @interface MovieDetailViewController ()
 
@@ -30,6 +31,7 @@
 @synthesize movieDescriptionLbl;
 @synthesize movieImageThumbnail;
 @synthesize movieDescriptionWebView;
+@synthesize webView;
 
 @synthesize videoURL;
 
@@ -107,8 +109,13 @@
 - (IBAction)viewTrailer:(id)sender {
     
     self.videoURL = [NSString stringWithFormat:@"http:%@",detailMovie.trailer_link];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: self.videoURL]];
+    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString: self.videoURL]];
 
+    ViewTrailerViewController *trailerViewController = [[ViewTrailerViewController alloc]initWithNibName:@"ViewTrailerViewController" bundle:Nil];
+    trailerViewController.videoURL = self.videoURL;
+    [self presentModalViewController:trailerViewController animated:YES];
+    
+    
     
     //VideoViewController *videoViewController = [[VideoViewController alloc] initWithNibName:nil bundle:nil] ;
     

@@ -206,10 +206,10 @@
 
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
 {
-    Movie *currentMovie = [items objectAtIndex:index];
-    
+    //Movie *currentMovie = [items objectAtIndex:index];
+    /*
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: [NSString stringWithFormat:@"http:%@",currentMovie.trailer_link]]];
-    
+    */
     //NSNumber *item = (self.items)[index];
     //NSLog(@"Pelicual: %@", currentMovie.name);
 }

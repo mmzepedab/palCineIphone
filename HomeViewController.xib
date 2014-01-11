@@ -10,7 +10,7 @@
                 <outlet property="dateLbl" destination="YFE-ek-J0r" id="vdv-vK-oKo"/>
                 <outlet property="movieTitleLbl" destination="Ex2-dO-VzQ" id="cpt-3c-5c7"/>
                 <outlet property="noInternetLbl" destination="y2w-4u-k57" id="buz-BM-fFj"/>
-                <outlet property="toMovieTimeBtn" destination="i7B-b3-Pdz" id="Duf-U9-Jbj"/>
+                <outlet property="toMovieTimeBtn" destination="k0s-bv-la7" id="dnz-cn-oIk"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -55,35 +55,21 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i7B-b3-Pdz">
-                    <rect key="frame" x="20" y="42" width="123" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.040252594429132406" green="0.34640587892601954" blue="0.61270805027173914" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="Por Hora">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="toMovieTimeAction:" destination="-1" eventType="touchUpInside" id="fsp-hO-Ovp"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2MG-EN-HjV">
-                    <rect key="frame" x="20" y="42" width="280" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.040252594429999997" green="0.34640587890000002" blue="0.61270805029999997" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="Ver Horarios">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="toTheaterBtn:" destination="-1" eventType="touchUpInside" id="qDO-oy-iMV"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" id="6AB-3M-3mp">
-                    <rect key="frame" x="20" y="29" width="280" height="1"/>
+                    <rect key="frame" x="0.0" y="29" width="320" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="k0s-bv-la7">
+                    <rect key="frame" x="105" y="42" width="111" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Ver Horarios">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="toTheaterBtn:" destination="-1" eventType="touchUpInside" id="W8t-8R-hHJ"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

@@ -31,6 +31,7 @@
 
 @property (nonatomic, retain) NSString *videoURL;
 
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 - (IBAction)viewTrailer:(id)sender;
 - (IBAction)viewTimes:(id)sender;

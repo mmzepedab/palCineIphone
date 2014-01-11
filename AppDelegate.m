@@ -59,7 +59,9 @@
     //self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController,comingSoonNavController, nil];
     self.mainTabBarController.viewControllers = [NSArray arrayWithObjects:navController,comingSoonNavController, self.myLocationViewController, nil];
     //self.window.rootViewController  = self.tabBarController;
-    [self.window addSubview:self.mainTabBarController.view];
+    //[self.window addSubview:self.mainTabBarController.view];
+    
+    self.window.rootViewController = self.mainTabBarController;
     
     //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

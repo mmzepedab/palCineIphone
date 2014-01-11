@@ -13,6 +13,7 @@
 #import "LoadingView.h"
 #import "MovieDetailViewController.h"
 #import "ToTheaterViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface HomeViewController (){
     LoadingView *loadingView;
@@ -64,6 +65,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        
         // Add Observer Reachability
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
         
