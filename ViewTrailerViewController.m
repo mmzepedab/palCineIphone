@@ -18,6 +18,7 @@
 @synthesize recognizer;
 @synthesize videoURL;
 @synthesize fingerImage;
+@synthesize activityIndicator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,7 +41,7 @@
     
     
     
-    NSString *html = [NSString stringWithFormat:@"<html><body><iframe style=\"background-color:#000; \" class=\"youtube-player\" type=\"text/html\" width=\"%f\" height=\"%f\" src=\"%@?HD=1;rel=0\" allowfullscreen frameborder=\"0\" rel=nofollow></iframe></body></html>",self.view.frame.size.width-15,200.0,videoURL];
+    NSString *html = [NSString stringWithFormat:@"<html><body><iframe class=\"youtube-player\" type=\"text/html\" width=\"%f\" height=\"%f\" src=\"%@?HD=1;rel=0\" allowfullscreen frameborder=\"0\" rel=nofollow></iframe></body></html>",self.view.frame.size.width-15,200.0,videoURL];
     [self.webView loadHTMLString:html baseURL:nil];
     
     //NSURL *url = [NSURL URLWithString:@"http://www.youtube.com/embed/84ieTKsn1Qk"];
@@ -100,6 +101,16 @@
 //iOS 5
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
+}
+
+-(void)webViewDidStartLoad:(UIWebView *)webView {
+    [activityIndicator startAnimating];
+    
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView {
+    activityIndicator.hidden = YES;
+    [activityIndicator stopAnimating];
 }
 
 @end

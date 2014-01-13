@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewTrailerViewController : UIViewController 
+@interface ViewTrailerViewController : UIViewController <UIWebViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *recognizer;
 
@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 - (IBAction)closeModalView:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *fingerImage;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

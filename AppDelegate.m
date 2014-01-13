@@ -11,6 +11,7 @@
 #import "HomeViewController.h"
 #import "ComingSoonViewController.h"
 #import "MyLocationViewController.h"
+#import "iRate.h"
 
 @implementation AppDelegate
 
@@ -26,6 +27,26 @@
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+
+
++ (void)initialize
+{
+    //set the bundle ID. normally you wouldn't need to do this
+    //as it is picked up automatically from your Info.plist file
+    //but we want to test with an app that's actually on the store
+    [iRate sharedInstance].applicationBundleID = @"com.mmzepedab.palCineIphone";
+	[iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+    [iRate sharedInstance].appStoreID = 791104005;
+    [iRate sharedInstance].messageTitle = @"palCine es Gratis";
+    [iRate sharedInstance].message = @"Si te gusta esta App y quieres ayudarnos a que siga siendo gratis, regalanos un minuto para darnos tu Review";
+    [iRate sharedInstance].cancelButtonLabel = @"No, Gracias. Quiero pagar por esta App";
+    [iRate sharedInstance].remindButtonLabel = @"Recordarme más tarde";
+    [iRate sharedInstance].rateButtonLabel = @"Escribir Review Ahora";
+    
+    //enable preview mode
+    [iRate sharedInstance].previewMode = YES;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewTrailerViewController">
             <connections>
+                <outlet property="activityIndicator" destination="6IE-7P-5EJ" id="GSk-aT-Y6c"/>
                 <outlet property="fingerImage" destination="p49-ss-sjT" id="458-My-kBs"/>
                 <outlet property="recognizer" destination="sBy-Oa-HUI" id="8vq-4H-4lC"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -38,6 +39,9 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="EvQ-Wg-5L6"/>
+                    </connections>
                 </webView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ck1-Kc-CbC">
                     <rect key="frame" x="125" y="30" width="70" height="44"/>
@@ -61,6 +65,11 @@
                     <color key="highlightedColor" red="0.93725496529999996" green="0.76862752440000004" blue="0.14901961389999999" alpha="1" colorSpace="deviceRGB"/>
                     <size key="shadowOffset" width="-1" height="1"/>
                 </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" id="6IE-7P-5EJ">
+                    <rect key="frame" x="142" y="162" width="37" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="color" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <gestureRecognizers/>
