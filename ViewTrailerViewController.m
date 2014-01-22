@@ -84,10 +84,22 @@
 }
 
 - (IBAction)closeModalView:(id)sender {
+    // create a standardUserDefaults variable
+    NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    // saving an NSString
+    [standardUserDefaults setObject:@"NO" forKey:@"shouldScrollToFirst"];
+    // synchronize the settings
+    [standardUserDefaults synchronize];
     [self dismissModalViewControllerAnimated:YES];
 }
 
 -(void)swipeHandler:(UISwipeGestureRecognizer *)recognizer {
+    // create a standardUserDefaults variable
+    NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    // saving an NSString
+    [standardUserDefaults setObject:@"NO" forKey:@"shouldScrollToFirst"];
+    // synchronize the settings
+    [standardUserDefaults synchronize];
     [self dismissModalViewControllerAnimated:YES];
 }
 

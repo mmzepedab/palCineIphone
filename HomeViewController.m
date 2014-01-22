@@ -92,6 +92,7 @@
     //Call WebService
     // create a standardUserDefaults variable
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    [standardUserDefaults setObject:@"YES" forKey:@"shouldScrollToFirst"];
     // getting an NSString object
     NSString *shouldRefresh = [standardUserDefaults stringForKey:@"shouldRefresh"];
     

@@ -13,6 +13,7 @@
 #import "LoadingView.h"
 #import "MovieDetailViewController.h"
 #import "ToTheaterViewController.h"
+#import "ViewTrailerViewController.h"
 
 @interface ComingSoonViewController (){
     LoadingView *loadingView;
@@ -51,8 +52,16 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    // getting an NSString object
+    NSString *shouldScrollToFirst = [standardUserDefaults stringForKey:@"shouldScrollToFirst"];
     
+    if (![shouldScrollToFirst  isEqual: @"NO"]) {
+        [self.carousel scrollToItemAtIndex:0 animated:YES];
         [self methodtocallWebservices];
+    }
+    
+    
     
     
 }
@@ -206,7 +215,15 @@
 
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
 {
-    //Movie *currentMovie = [items objectAtIndex:index];
+    Movie *currentMovie = [items objectAtIndex:index];
+    
+    
+    NSString *movieTrailerURL = [NSString stringWithFormat:@"http:%@",currentMovie.trailer_link];
+    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString: self.videoURL]];
+    
+    ViewTrailerViewController *trailerViewController = [[ViewTrailerViewController alloc]initWithNibName:@"ViewTrailerViewController" bundle:Nil];
+    trailerViewController.videoURL = movieTrailerURL;
+    [self presentModalViewController:trailerViewController animated:YES];
     /*
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: [NSString stringWithFormat:@"http:%@",currentMovie.trailer_link]]];
     */
@@ -346,13 +363,14 @@
     if ([self.items count]>0) {
         //[alertLoader dismissWithClickedButtonIndex:0 animated:YES];
         carousel.type = iCarouselTypeLinear;
-        [carousel reloadData];
+        
         Movie *firstMovie = [self.items objectAtIndex:0];
         self.carouselMovieId = firstMovie.id;
         self.carouselMovieName = firstMovie.name;
         movieTitleLbl.text = firstMovie.name;
         dateLbl.text = firstMovie.release_date;
         self.videoURL = firstMovie.trailer_link;
+        [carousel reloadData];
         [loadingView removeView];
     }else{
         [carousel reloadData];
@@ -395,8 +413,22 @@
 
 
 - (IBAction)viewTrailerBtn:(id)sender {
+    NSLog(@"Si");
+    self.videoURL = [NSString stringWithFormat:@"http:%@",self.videoURL];
+    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString: self.videoURL]];
     
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: [NSString stringWithFormat:@"http:%@",self.videoURL]]];
+    ViewTrailerViewController *trailerViewController = [[ViewTrailerViewController alloc]initWithNibName:@"ViewTrailerViewController" bundle:Nil];
+    trailerViewController.videoURL = self.videoURL;
+    [self presentModalViewController:trailerViewController animated:YES];
     
+}
+
+- (IBAction)viewTrailer:(id)sender {
+    self.videoURL = [NSString stringWithFormat:@"http:%@",self.videoURL];
+    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString: self.videoURL]];
+    
+    ViewTrailerViewController *trailerViewController = [[ViewTrailerViewController alloc]initWithNibName:@"ViewTrailerViewController" bundle:Nil];
+    trailerViewController.videoURL = self.videoURL;
+    [self presentModalViewController:trailerViewController animated:YES];
 }
 @end

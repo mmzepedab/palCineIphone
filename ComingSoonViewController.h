@@ -31,5 +31,6 @@
 @property (weak, nonatomic) NSString  *videoURL;
 @property (weak, nonatomic) IBOutlet UILabel *dateLbl;
 - (IBAction)viewTrailerBtn:(id)sender;
+- (IBAction)viewTrailer:(id)sender;
 
 @end

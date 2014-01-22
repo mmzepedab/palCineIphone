@@ -12,6 +12,7 @@
 #import "ComingSoonViewController.h"
 #import "MyLocationViewController.h"
 #import "iRate.h"
+#import "Harpy.h"
 
 @implementation AppDelegate
 
@@ -34,22 +35,30 @@
     //set the bundle ID. normally you wouldn't need to do this
     //as it is picked up automatically from your Info.plist file
     //but we want to test with an app that's actually on the store
+    
+    [iRate sharedInstance].daysUntilPrompt = 1;
+    [iRate sharedInstance].usesUntilPrompt = 5;
+    
     [iRate sharedInstance].applicationBundleID = @"com.mmzepedab.palCineIphone";
 	[iRate sharedInstance].onlyPromptIfLatestVersion = NO;
     [iRate sharedInstance].appStoreID = 791104005;
     [iRate sharedInstance].messageTitle = @"palCine es Gratis";
-    [iRate sharedInstance].message = @"Si te gusta esta App y quieres ayudarnos a que siga siendo gratis, regalanos un minuto para darnos tu Review";
+    [iRate sharedInstance].message = @"Si te gusta esta App y quieres ayudarnos a que siga siendo gratis, regalanos un minuto para darnos tu Review.";
     [iRate sharedInstance].cancelButtonLabel = @"No, Gracias. Quiero pagar por esta App";
     [iRate sharedInstance].remindButtonLabel = @"Recordarme más tarde";
     [iRate sharedInstance].rateButtonLabel = @"Escribir Review Ahora";
     
     //enable preview mode
-    [iRate sharedInstance].previewMode = YES;
+    //[iRate sharedInstance].previewMode = YES;
+    [iRate sharedInstance].verboseLogging = NO;
 }
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    
+    
     // Initialize Reachability
     Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
     // Start Monitoring
@@ -86,6 +95,21 @@
     
     //self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    //Harpy Methods
+    // Set the App ID for your app
+    [[Harpy sharedInstance] setAppID:@"791104005"];
+    
+    // (Optional) Set the App Name for your app
+    [[Harpy sharedInstance] setAppName:@"palCine"];
+    
+    
+    [[Harpy sharedInstance] setForceLanguageLocalization:HarpyLanguageSpanish];
+    
+    // Perform check for new version of your app
+    [[Harpy sharedInstance] checkVersion];
+    
+    
     return YES;
 }
 
